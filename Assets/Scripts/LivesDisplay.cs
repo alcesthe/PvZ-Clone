@@ -5,14 +5,16 @@ using TMPro;
 
 public class LivesDisplay : MonoBehaviour
 {
-    [SerializeField] int lives = 3;
+    [SerializeField] float baseLives = 3;
+    float lives;
     TextMeshProUGUI liveText;
-    LevelLoad levelLoad;
+    LevelController levelController;
     // Start is called before the first frame update
     void Start()
     {
+        lives = baseLives - PlayerPrefsController.GetDifficulty();
         liveText = GetComponent<TextMeshProUGUI>();
-        levelLoad = FindObjectOfType<LevelLoad>();
+        levelController = FindObjectOfType<LevelController>();
         UpdateDisplay();
     }
 
@@ -32,7 +34,7 @@ public class LivesDisplay : MonoBehaviour
         lives -= amount;
         if (lives == 0)
         {
-            levelLoad.LoadGameOver();
+            levelController.HandleLoseCondition();
         }
         UpdateDisplay();
     }

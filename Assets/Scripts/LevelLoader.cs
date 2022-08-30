@@ -4,15 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelLoad : MonoBehaviour
+public class LevelLoader : MonoBehaviour
 {
     [SerializeField] int timeToWait = 6;
     private int currentSceneIndex;
+    LevelController levelController;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        levelController = FindObjectOfType<LevelController>();
+
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 0)
         {
@@ -31,14 +34,25 @@ public class LevelLoad : MonoBehaviour
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
-    public void LoadGameOver()
+    public void ReloadCurrentScene()
     {
-        SceneManager.LoadScene("Game Over");
+        Time.timeScale = 1;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadMainMenu()
     {
-        
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
+
+    public void LoadOptionScreen()
+    {
+        SceneManager.LoadScene("Option Screen");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
