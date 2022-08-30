@@ -31,6 +31,11 @@ public class LevelLoad : MonoBehaviour
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
+    public void LoadGameOver()
+    {
+        SceneManager.LoadScene("Game Over");
+    }
+
     // Update is called once per frame
     void Update()
     {

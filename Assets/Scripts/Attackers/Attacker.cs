@@ -7,7 +7,18 @@ public class Attacker : MonoBehaviour
 {
     [Range(0f, 5f)] float currentSpeed = 1f;
     GameObject currentTarget;
+    LevelController levelController;
 
+
+    private void Awake()
+    {
+        FindObjectOfType<LevelController>().AttackerSpawned();
+    }
+
+    private void OnDestroy()
+    {
+        FindObjectOfType<LevelController>().AttackerDestroyed();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -17,7 +28,6 @@ public class Attacker : MonoBehaviour
 
     private void UpdateAnimationState()
     {
-        Debug.Log(currentTarget);
         if (!currentTarget)
         {
             GetComponent<Animator>().SetBool("isAttacking", false);
